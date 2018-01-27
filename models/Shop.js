@@ -20,20 +20,20 @@ var Shop={
 	orders:function(order_id,q,l,o,callback){
 		var sql = 'select table1.*,p.productName,p.productLine from (select c.customerNumber,c.customerName,c.contactLastName,c.contactFirstName,c.phone,c.addressLine1,c.addressLine2,c.city,c.state,c.postalCode,c.country,o.orderNumber,o.orderDate,o.requiredDate,o.shippedDate,o.status,o.comments,od.productCode,od.quantityOrdered,od.priceEach,SUM(od.quantityOrdered * od.priceEach) as total from orders o left join customers c on c.customerNumber= o.customerNumber left join orderdetails od on od.orderNumber = o.orderNumber where o.orderNumber='+order_id+' group  by od.productCode) as table1 left join products p on table1.productCode = p.productCode';
 		if(q!=''){
-			sql += ' having o.orderNumber like "%'+q+'%"';
+			sql += ' having p.productName like "%'+q+'%"';
 		}
 
 		showData(sql,l,o,callback);
 	},
 	products:function(product_id,q,l,o,callback){
 		var sql = 'Select * from products where 1';
-		if(product_id!=''){
-			sql += ' and productCode = '+product_id;
+		if(product_id!='' && product_id!==undefined){
+			sql += ' and productCode = "'+product_id+'"';
 		}
 		if(q!=''){
 			sql += ' and productName like "%'+q+'%"';
 		}
-
+		//console.log(sql);
 		showData(sql,l,o,callback);
 	}
 };

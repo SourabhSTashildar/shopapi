@@ -18,18 +18,20 @@ router.get('/product_lines',function(req,res,next){
 });
 router.get('/customers/:customer_id/:type',function(req,res,next){ 
 	if(!isNaN(req.params.customer_id)){
-		Shop.customers(req.params.customer_id,req.query.q,req.query.limit,req.query.offset,function(err,rows){
- 
-			if(err){
-				//res.json(err);
-				console.error(err.stack);
-  				res.status(500).send('Something went wrong!');
-			}else{
-				//res.json(rows);
-				res.send(rows);
-			}
-	 
-		});
+		if(req.params.type == 'orders'){
+			Shop.customers(req.params.customer_id,req.query.q,req.query.limit,req.query.offset,function(err,rows){
+				if(err){
+					//res.json(err);
+					console.error(err.stack);
+	  				res.status(500).send('Something went wrong!');
+				}else{
+					//res.json(rows);
+					res.send(rows);
+				}
+			});
+		}else{
+			res.send('Please Enter a Valid Request Parameter!');
+		}
 	}else{
 		res.send('Please Enter a Valid Customer Id!');
 	}
@@ -75,6 +77,10 @@ router.get('/products/:product_id?',function(req,res,next){
  
 	});
 	
+});
+
+router.get('*', function(req, res){
+  res.send('Please check the URL', 404);
 });
 
 module.exports=router;
