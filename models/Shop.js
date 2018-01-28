@@ -1,6 +1,11 @@
 var db=require('../dbconnection'); //reference of dbconnection.js
  
 var Shop={
+	/*
+		q = search string
+		l = limit
+		o = offset
+	*/
 	productLines:function(q,l,o,callback){
 		var sql = 'Select * from productlines';
 		if(q!=''){
@@ -33,13 +38,15 @@ var Shop={
 		if(q!=''){
 			sql += ' and productName like "%'+q+'%"';
 		}
-		//console.log(sql);
 		showData(sql,l,o,callback);
 	}
 };
 
+/*
+	Get data as well as total row count for pagination
+*/
 function showData(sql,l,o,callback){
-	//get total rows
+	//get total row count
 	db.query(sql,function(err,rows){
 		if(err){
 			callback(err,rows);
