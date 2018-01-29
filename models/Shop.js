@@ -65,7 +65,7 @@ function showData(sql,l,o,callback){
 					msg['data'] = rows;
 					msg['total'] = total;
 
-					callback(err,JSON.stringify(msg));
+					callback(err,JSON.stringify(msg,null,2));
 				}
 			});
 		}
