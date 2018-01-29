@@ -2,4 +2,22 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p You can use the following requests to communicate with the #{title}
+  ul
+    li
+        p /product_lines?q=&limit=&offset=
+        p Search for product lines using q=productLine
+    li
+        p /customers/CUSTOMER_ID/orders?q=&limit=&offset=
+        p Search for orders using q=orderNumber
+    li
+        p /orders/ORDER_ID?q=&limit=&offset=
+        p Search for product specific orders using q=productName
+    li
+        p /products?q=&limit=&offset=
+        p Search for products using q=productName
+    li
+        p /products/PRODUCT_ID?q=&limit=&offset=
+    br
+    i
+        small For all the above requests, use limit and offset for pagination

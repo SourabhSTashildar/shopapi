@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var Shop=require('../models/Shop');
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Shop Api' });
+});
+
 router.get('/product_lines',function(req,res,next){
 	//q = search based on productLine
 	Shop.productLines(req.query.q,req.query.limit,req.query.offset,function(err,rows){
